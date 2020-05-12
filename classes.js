@@ -99,12 +99,13 @@ class Manager extends Employee{
 //Code Here
 
 class ProgressiveManager extends Manager{
-  constructor(first_name, last_name, email, age, reports){
-    super(first_name, last_name, email, age, reports)
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age)
     this.title = 'Not a manager'
     this.bonus = 0
   }
   hire(){
+    super.hire()
     if (this.reports.length === 0){
       this.title = 'Not a manager'
     } else if (this.reports.length > 0 && this.reports.length < 4){
@@ -118,6 +119,10 @@ class ProgressiveManager extends Manager{
     } else {
       this.title =  'Bestest Manager'
     }
+  }
+  fire(){
+    super.fire()
+    this.bonus += 100
   }
 }
 
@@ -148,22 +153,23 @@ class ProgressiveManager extends Manager{
 
 class Machine{
   constructor(){
-    widgets_made_count = 0
-    wear_and_tear_count = 0
-    needs_reboot = false
+    this.widgets_made_count = 0
+    this.wear_and_tear_count = 0
+    this.needs_reboot = false
   }
   makeWidgets(num){
-    widgets_made_count += num
-    wear_and_tear_count += widgets_made_count/50
+    this.widgets_made_count += num
+    this.wear_and_tear_count = Math.floor(this.widgets_made_count / 50)
 
   }
   fixMachine(){
-    needs_reboot = true
+    this.needs_reboot = true
   }
   reboot(){
     return function(){
-      wear_and_tear_count -= 10
-      needs_reboot = false
-    }
+      this.wear_and_tear_count -= 10
+      this.needs_reboot = false
+    }.bind(this)
   }
+
 }

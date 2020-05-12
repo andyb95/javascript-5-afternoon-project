@@ -216,10 +216,12 @@ function secretNumber() {
 
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
+    function memoryClosure(index){
     setTimeout(function() {
-      return i;
-
+      console.log(index);
     }, i * 1000);
+    }
+    memoryClosure(i)
   }
 }
 timeOutCounter();
